@@ -5,6 +5,8 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Settings from './pages/Settings';
+import Footer from './components/Footer';
+import Products from './pages/Products';
 import './App.css';
 
 const PublicRoute = ({ children }) => {
@@ -40,6 +42,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+              <Route
+        path="/products"
+        element={
+          <ProtectedRoute>
+            <Products />
+          </ProtectedRoute>
+        }
+      />
         <Route
           path="/settings"
           element={
@@ -51,6 +61,7 @@ function App() {
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
+      <Footer/>
     </AuthProvider>
   );
 }

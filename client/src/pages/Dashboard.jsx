@@ -11,6 +11,7 @@ const Dashboard = () => {
         <nav>
           <Link to="/dashboard" className="nav-link active">Dashboard</Link>
           <Link to="/settings" className="nav-link">Settings</Link>
+          <Link to="/products" className="nav-link">Products</Link>
           <button onClick={logout} className="btn btn-outline">
             Logout
           </button>
@@ -50,6 +51,9 @@ const Dashboard = () => {
             </Link>
             <Link to="/settings" className="action-btn">
               Change Password
+            </Link>
+            <Link to="/products" className='action-btn'>
+            Products
             </Link>
           </div>
         </div>
