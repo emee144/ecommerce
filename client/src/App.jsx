@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 import Settings from './pages/Settings';
 import Footer from './components/Footer';
 import Products from './pages/Products';
+import CreateProduct from './pages/CreateProduct';
 import './App.css';
 
 const PublicRoute = ({ children }) => {
@@ -47,6 +48,14 @@ function App() {
         element={
           <ProtectedRoute>
             <Products />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/products/create"
+        element={
+          <ProtectedRoute>
+            <CreateProduct />
           </ProtectedRoute>
         }
       />

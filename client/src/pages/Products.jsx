@@ -41,12 +41,24 @@ function Products() {
       </header>
 
       <div className="dashboard-content">
-        <h1 style={{ marginBottom: '1.5rem' }}>All Products</h1>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+          <h1 style={{ margin: 0 }}>All Products</h1>
+          
+          {/* Add / Create Product Button */}
+          <Link to="/products/new" className="btn-primary">
+            + Add Product
+          </Link>
+        </div>
 
         {error && <div className="error-message">{error}</div>}
 
         {products.length === 0 ? (
-          <p>No products found.</p>
+          <div className="empty-state">
+            <p>No products found.</p>
+            <Link to="/products/create" className="btn-primary" style={{ marginTop: '1rem' }}>
+              Create your first product
+            </Link>
+          </div>
         ) : (
           <div className="products-grid">
             {products.map((product) => (
@@ -65,8 +77,6 @@ function Products() {
           </div>
         )}
       </div>
-
-      <Footer />
     </div>
   );
 }
