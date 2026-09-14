@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Footer from '../components/Footer';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
@@ -45,7 +44,7 @@ function Products() {
           <h1 style={{ margin: 0 }}>All Products</h1>
           
           {/* Add / Create Product Button */}
-          <Link to="/products/new" className="btn-primary">
+          <Link to="/products/create" className="btn-primary">
             + Add Product
           </Link>
         </div>
