@@ -495,7 +495,16 @@ a:hover {
   background: #0d9488;
   transform: translateY(-1px);
 }
-
+.btn-add {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  background-color: green;
+  color: white;
+  border-radius: 6px;
+  padding: 10px;
+}
 /* Error Message */
 .error-message {
   background: #fef2f2;

@@ -8,6 +8,7 @@ import Settings from './pages/Settings';
 import Footer from './components/Footer';
 import Products from './pages/Products';
 import CreateProduct from './pages/CreateProduct';
+import MyProducts from './pages/MyProducts';
 import './App.css';
 
 const PublicRoute = ({ children }) => {
@@ -56,6 +57,14 @@ function App() {
         element={
           <ProtectedRoute>
             <CreateProduct />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/my-products"
+        element={
+          <ProtectedRoute>
+            <MyProducts />
           </ProtectedRoute>
         }
       />

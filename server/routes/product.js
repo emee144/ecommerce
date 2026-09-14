@@ -1,11 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
+const { protect } = require('../middleware/auth');
 
 // Get all products
 router.get('/', async (req, res) => {
   try {
     const products = await Product.find().sort({ createdAt: -1 });
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Get only products added by the logged-in user
+router.get('/my', protect, async (req, res) => {
+  try {
+    const products = await Product.find({ user: req.user._id }).sort({ createdAt: -1 });
     res.json(products);
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
