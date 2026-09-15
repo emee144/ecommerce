@@ -13,7 +13,7 @@ function MyProducts() {
     const fetchMyProducts = async () => {
       try {
   const token = localStorage.getItem('token');
-  console.log("Token:", token); // check if token exists
+  console.log("Token:", token);
 
   const { data } = await axios.get(`${API_URL}/api/products/my`, {
     headers: {
