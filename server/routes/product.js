@@ -4,40 +4,36 @@ const router = express.Router();
 const Product = require('../models/Product');
 const { protect } = require('../middleware/auth');
 
-// GET /api/products
+// ==========================================
+// GET ALL PRODUCTS
+// Public route
 // ==========================================
 router.get('/', async (req, res) => {
   try {
-    const products = await Product.find()
-      .sort({ createdAt: -1 });
+    const products = await Product.find().sort({ createdAt: -1 });
 
     res.json(products);
   } catch (error) {
-    console.error('Get all products error:', error);
-
+    console.error('Get products error:', error);
     res.status(500).json({
       message: 'Server error'
     });
   }
 });
 
-// Get products belonging to logged-in user
-// GET /api/products/my
+// ==========================================
+// GET MY PRODUCTS
+// Protected route
 // ==========================================
 router.get('/my', protect, async (req, res) => {
   try {
-    console.log('Logged-in user ID:', req.user._id);
-
     const products = await Product.find({
       user: req.user._id
     }).sort({ createdAt: -1 });
 
-    console.log('My products:', products);
-
     res.json(products);
   } catch (error) {
     console.error('Get my products error:', error);
-
     res.status(500).json({
       message: 'Server error'
     });
@@ -45,13 +41,11 @@ router.get('/my', protect, async (req, res) => {
 });
 
 // ==========================================
-// Create product
-// POST /api/products
+// CREATE PRODUCT
+// Protected route
 // ==========================================
 router.post('/', protect, async (req, res) => {
   try {
-    console.log('Creating product for user:', req.user._id);
-
     const product = await Product.create({
       ...req.body,
       user: req.user._id

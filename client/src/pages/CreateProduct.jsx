@@ -21,10 +21,17 @@ function CreateProduct() {
     setLoading(true);
 
     try {
+      const token = localStorage.getItem('token');
+
+      if (!token) {
+        throw new Error('You are not logged in. Please log in again.');
+      }
+
       const res = await fetch(`${API_URL}/api/products`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           name,
@@ -54,25 +61,39 @@ function CreateProduct() {
     <div className="dashboard">
       <header className="dashboard-header">
         <div className="logo">AccountHub</div>
+
         <nav className="dashboard-nav">
-          <Link to="/dashboard" className="nav-link">Dashboard</Link>
-          <Link to="/products" className="nav-link active">Products</Link>
-          <Link to="/settings" className="nav-link">Settings</Link>
+          <Link to="/dashboard" className="nav-link">
+            Dashboard
+          </Link>
+
+          <Link to="/products" className="nav-link active">
+            Products
+          </Link>
+
+          <Link to="/settings" className="nav-link">
+            Settings
+          </Link>
         </nav>
       </header>
 
       <div className="dashboard-content">
         <div className="form-header">
           <h1>Create Product</h1>
+
           <Link to="/products" className="btn-secondary">
             ← Back to Products
           </Link>
         </div>
 
-        {error && <div className="error-message">{error}</div>}
+        {error && (
+          <div className="error-message">
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="product-form">
-          {/* Product Name */}
+
           <div className="form-group">
             <label htmlFor="name">Product Name *</label>
             <input
@@ -85,7 +106,6 @@ function CreateProduct() {
             />
           </div>
 
-          {/* Category */}
           <div className="form-group">
             <label htmlFor="category">Category *</label>
             <input
@@ -98,7 +118,6 @@ function CreateProduct() {
             />
           </div>
 
-          {/* Price */}
           <div className="form-group">
             <label htmlFor="price">Price ($) *</label>
             <input
@@ -113,7 +132,6 @@ function CreateProduct() {
             />
           </div>
 
-          {/* Stock */}
           <div className="form-group">
             <label htmlFor="stock">Stock *</label>
             <input
@@ -127,7 +145,6 @@ function CreateProduct() {
             />
           </div>
 
-          {/* Description */}
           <div className="form-group">
             <label htmlFor="description">Description *</label>
             <textarea
@@ -140,7 +157,6 @@ function CreateProduct() {
             ></textarea>
           </div>
 
-          {/* Image URL */}
           <div className="form-group">
             <label htmlFor="image">Image URL</label>
             <input
@@ -152,7 +168,6 @@ function CreateProduct() {
             />
           </div>
 
-          {/* Image Preview */}
           {image && (
             <div className="image-preview">
               <p>Image Preview:</p>
@@ -160,15 +175,20 @@ function CreateProduct() {
             </div>
           )}
 
-          {/* Buttons */}
           <div className="form-actions">
-            <button type="submit" className="btn-primary" disabled={loading}>
+            <button
+              type="submit"
+              className="btn-primary"
+              disabled={loading}
+            >
               {loading ? 'Creating...' : 'Create Product'}
             </button>
+
             <Link to="/products" className="btn-secondary">
               Cancel
             </Link>
           </div>
+
         </form>
       </div>
     </div>
