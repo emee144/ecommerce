@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 import Products from './pages/Products';
 import CreateProduct from './pages/CreateProduct';
 import MyProducts from './pages/MyProducts';
+import EditProduct from './pages/EditProduct';
 import './App.css';
 
 const PublicRoute = ({ children }) => {
@@ -65,6 +66,14 @@ function App() {
         element={
           <ProtectedRoute>
             <MyProducts />
+          </ProtectedRoute>
+        }
+      />
+       <Route
+        path="/product/edit/:id"
+        element={
+          <ProtectedRoute>
+            <EditProduct />
           </ProtectedRoute>
         }
       />

@@ -71,6 +71,9 @@ function Products() {
                   <p className="product-stock">
                     {product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}
                   </p>
+                  <Link to={`/product/edit/${product._id}`} className='btn-addy'>
+                    Edit 
+                  </Link>
                 </div>
               </div>
             ))}

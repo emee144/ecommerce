@@ -505,6 +505,16 @@ a:hover {
   border-radius: 6px;
   padding: 10px;
 }
+.btn-addy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  background-color: green;
+  color: white;
+  border-radius: 6px;
+  padding: 10px;
+}
 /* Error Message */
 .error-message {
   background: #fef2f2;

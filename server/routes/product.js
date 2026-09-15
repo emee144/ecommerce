@@ -60,5 +60,25 @@ router.post('/', protect, async (req, res) => {
     });
   }
 });
+ 
+// Edit route
+router.get('/:id', protect, async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+      return res.status(404).json({
+        message: 'Product not found'
+      });
+    }
+
+    res.json(product);
+  } catch (error) {
+    console.error('Get product error:', error);
+    res.status(500).json({
+      message: 'Server error'
+    });
+  }
+});
 
 module.exports = router;
