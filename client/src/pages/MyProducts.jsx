@@ -8,23 +8,20 @@ function MyProducts() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [deletingId, setDeletingId] = useState(null);
 
   useEffect(() => {
     const fetchMyProducts = async () => {
       try {
   const token = localStorage.getItem('token');
-  console.log("Token:", token);
 
   const { data } = await axios.get(`${API_URL}/api/products/my`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-
-  console.log("Success:", data);
   setProducts(data);
 } catch (err) {
-  console.log("Full error:", err.response?.data || err.message);
   setError(err.response?.data?.message || 'Failed to load your products');
 }finally {
         setLoading(false);
@@ -33,6 +30,36 @@ function MyProducts() {
 
     fetchMyProducts();
   }, []);
+
+  const handleDelete = async (productId) => {
+    const confirmed = window.confirm(
+      'Are you sure you want to delete this product forever? This action cannot be undone.'
+    );
+
+    if (!confirmed) return;
+
+    setDeletingId(productId);
+    setError('');
+
+    try {
+      const res = await fetch(`${API_URL}/api/products/${productId}`, {
+        method: 'DELETE',
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || 'Failed to delete product');
+      }
+
+      // Remove product from UI
+      setProducts((prev) => prev.filter((p) => p._id !== productId));
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setDeletingId(null);
+    }
+  };
 
   if (loading) return <div className="loading">Loading your products...</div>;
 
@@ -79,6 +106,16 @@ function MyProducts() {
                     {product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}
                   </p>
                 </div>
+                 <Link to={`/product/edit/${product._id}`} className='btn-addy' style={{width: "100%"}}>
+                    Edit 
+                  </Link>
+                  <button
+                      onClick={() => handleDelete(product._id)}
+                      disabled={deletingId === product._id}
+                      className="btn-delete"
+                    >
+                      {deletingId === product._id ? 'Deleting...' : 'Delete'}
+                    </button>
               </div>
             ))}
           </div>

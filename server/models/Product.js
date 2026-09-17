@@ -22,10 +22,10 @@ const productSchema = new mongoose.Schema(
       trim: true,
     },
     user: {
-  type: mongoose.Schema.Types.ObjectId,
-  ref: 'User',
-  required: true
-},
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    },
     image: {
       type: String,
       default: 'https://via.placeholder.com/300',

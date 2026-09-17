@@ -376,8 +376,8 @@ a:hover {
 /* Product Grid */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1.75rem;
+  grid-template-columns: repeat(3, 1fr);  /* equal width columns */
+  gap: 1rem;
 }
 
 /* Product Card */
@@ -390,6 +390,8 @@ a:hover {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   display: flex;
   flex-direction: column;
+  height: 430px;
+
 }
 
 .product-card:hover {
@@ -408,7 +410,7 @@ a:hover {
 
 .product-image {
   width: 100%;
-  height: 100%;
+  height: 50%;
   object-fit: cover;
   transition: transform 0.4s ease;
 }
@@ -419,7 +421,7 @@ a:hover {
 
 /* Product Info */
 .product-info {
-  padding: 1.25rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -512,6 +514,7 @@ a:hover {
   width: 100px;
   background-color: green;
   color: white;
+  margin-bottom: 10px;
   border-radius: 6px;
   padding: 10px;
 }
@@ -650,4 +653,31 @@ a:hover {
 
 .btn-secondary:hover {
   background: #e2e8f0;
+}
+
+/*delete css*/
+
+.product-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.btn-delete {
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.btn-delete:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-delete:hover:not(:disabled) {
+  background-color: #b91c1c;
 }
