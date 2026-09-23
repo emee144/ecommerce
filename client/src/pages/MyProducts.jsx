@@ -44,6 +44,9 @@ function MyProducts() {
     try {
       const res = await fetch(`${API_URL}/api/products/${productId}`, {
         method: 'DELETE',
+        headers: {
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
+  },
       });
 
       const data = await res.json();
@@ -96,7 +99,7 @@ function MyProducts() {
         ) : (
           <div className="products-grid">
             {products.map((product) => (
-              <div key={product._id} className="product-card">
+              <div key={product._id} className="product-card" style={{height: "470px"}}>
                 <img src={product.image} alt={product.name} className="product-image" />
                 <div className="product-info">
                   <h3>{product.name}</h3>

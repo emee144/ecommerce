@@ -8,6 +8,7 @@ function Products() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [deletingId, setDeletingId] = useState(null);
+  const [addingId, setAddingId] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -26,6 +27,26 @@ function Products() {
 
     fetchProducts();
   }, []);
+
+  const handleAddToCart = async (productId) => {
+  setAddingId(productId);
+  setError('');
+
+  try {
+    await axios.post(`${API_URL}/api/cart/items`,
+      { productId, qty: 1 },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      }
+    );
+  } catch (err) {
+    setError(err.response?.data?.message || 'Failed to add to cart');
+  } finally {
+    setAddingId(null);
+  }
+};
 
   const handleDelete = async (productId) => {
     const confirmed = window.confirm(
@@ -112,6 +133,18 @@ function Products() {
                     >
                       {deletingId === product._id ? 'Deleting...' : 'Delete'}
                     </button>
+                    <button
+                  className="btn-add"
+                  style={{ width: '100%', marginBottom: '0.5rem' }}
+                  disabled={product.stock < 1 || addingId === product._id}
+                  onClick={() => handleAddToCart(product._id)}
+                >
+                  {product.stock < 1
+                    ? 'Out of stock'
+                    : addingId === product._id
+                    ? 'Adding...'
+                    : 'Add to Cart'}
+                </button>
                 </div>
               </div>
             ))}

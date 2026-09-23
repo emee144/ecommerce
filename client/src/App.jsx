@@ -10,6 +10,7 @@ import Products from './pages/Products';
 import CreateProduct from './pages/CreateProduct';
 import MyProducts from './pages/MyProducts';
 import EditProduct from './pages/EditProduct';
+import Cart from './pages/Cart'
 import './App.css';
 
 const PublicRoute = ({ children }) => {
@@ -74,6 +75,14 @@ function App() {
         element={
           <ProtectedRoute>
             <EditProduct />
+          </ProtectedRoute>
+        }
+      />
+       <Route
+        path="/cart"
+        element={
+          <ProtectedRoute>
+            <Cart />
           </ProtectedRoute>
         }
       />
