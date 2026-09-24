@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
@@ -88,6 +89,7 @@ function Products() {
           <Link to="/dashboard" className="nav-link">Dashboard</Link>
           <Link to="/products" className="nav-link active">Products</Link>
           <Link to="/my-products" className="nav-link">My-Products</Link>
+          <Link to="/cart" className="nav-link">Cart</Link>
           <Link to="/settings" className="nav-link">Settings</Link>
         </nav>
       </header>
@@ -135,7 +137,7 @@ function Products() {
                     </button>
                     <button
                   className="btn-add"
-                  style={{ width: '100%', marginBottom: '0.5rem' }}
+                  style={{ width: '100%', marginBottom: '0.5rem', cursor: "pointer" }}
                   disabled={product.stock < 1 || addingId === product._id}
                   onClick={() => handleAddToCart(product._id)}
                 >

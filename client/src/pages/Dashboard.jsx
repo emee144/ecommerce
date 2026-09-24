@@ -11,6 +11,7 @@ const Dashboard = () => {
         <nav>
           <Link to="/dashboard" className="nav-link active">Dashboard</Link>
           <Link to="/settings" className="nav-link">Settings</Link>
+          <Link to="/cart" className="nav-link">Cart</Link>
           <Link to="/my-products" className="nav-link">My-Products</Link>
           <Link to="/products" className="nav-link">Products</Link>
           <button onClick={logout} className="btn btn-outline">

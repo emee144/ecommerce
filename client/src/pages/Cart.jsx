@@ -84,7 +84,8 @@ function Cart() {
       setError(err.response?.data?.message || 'Failed to clear cart');
     }
   };
-
+   
+  
   if (loading) return <div className="loading">Loading cart...</div>;
 
   const items = cart.items || [];
@@ -92,7 +93,19 @@ function Cart() {
     const price = item.product?.price || 0;
     return sum + price * item.qty;
   }, 0);
+ 
+  const handleCheckout = () => {
+  if (items.length === 0) return;
 
+  const confirmed = window.confirm(
+    `Place order for $${subtotal.toFixed(2)}?`
+  );
+
+  if (confirmed) {
+    setCart({ items: [] });         
+    alert('Order placed successfully');
+  }
+};
   return (
     <div className="dashboard">
       <header className="dashboard-header">
@@ -194,8 +207,8 @@ function Cart() {
 
             <div style={{ marginTop: '2rem', textAlign: 'right' }}>
               <h2>Subtotal: ${subtotal.toFixed(2)}</h2>
-              <button className="btn-primary" style={{ marginTop: '1rem' }} disabled>
-                Checkout coming next
+              <button className="btn-checkout" onClick={handleCheckout} style={{ marginTop: '1rem' }} disabled={items.length === 0}>
+                Checkout
               </button>
             </div>
           </>

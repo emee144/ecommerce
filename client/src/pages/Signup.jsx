@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import axios from "axios";
 
 const Signup = () => {
   const [name, setName] = useState('');
@@ -8,20 +8,27 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-
-  const { signup } = useAuth();
   const navigate = useNavigate();
 
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
     try {
-      await signup(name, email, password);
+      const {data} = await axios.post(`${API_URL}/api/auth/signup`, 
+        { name, email, password },
+        {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        
+      })
+      localStorage.setItem("token", data.token)
       navigate('/dashboard');
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.message);
     } finally {
       setLoading(false);
     }
